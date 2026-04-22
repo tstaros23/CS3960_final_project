@@ -10,7 +10,7 @@ if uploaded_file:
     st.write("Preview of data:")
     st.dataframe(df.head())
 
-    column = st.selectbox("Select column for year formatting check", df.columns)
+    column = st.selectbox("Select column for formatting check", df.columns)
 
     if st.button("Check Year Format (YYYY-MM-DD)"):
         #pandas uses vectors to perform operations, so I did not loop manually and applied conditions to the entire column. 
