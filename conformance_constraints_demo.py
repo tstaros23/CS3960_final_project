@@ -11,13 +11,14 @@ if uploaded_file:
     st.dataframe(df.head())
 
     column = st.selectbox("Select column for formatting check", df.columns)
+    min_val = st.number_input("Min value")
+    max_val = st.number_input("Max value")
 
-    if st.button("Check Year Format (YYYY-MM-DD)"):
+    if st.button("Check Range"):
         #pandas uses vectors to perform operations, so I did not loop manually and applied conditions to the entire column. 
         #so we are comparing series and creating a new series of validations
-        df["parsed_date"] = pd.to_datetime(df[column], format="%Y-%m-%d", errors="coerce")
-
-        violations = df[df["parsed_date"].isna()]
+        #keep rows where condition is true
+        violations = df[(df[column] < min_val) | (df[column] > max_val)]
 
         if violations.empty:
             st.success("No violations")
